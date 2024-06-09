@@ -10,8 +10,8 @@ function NewsItem({ mode, title, description ,imgurl,newsurl}) {
                 <img src={imgurl?imgurl:'./NoImageFound.png'} className="card-img-top" alt="..." />
                 <div className="card-body" >
                     <h5 className="card-title">{'"'+title?title.split("।").slice(0,1)+'।"':"Null"}</h5>
-                    <p className="card-text">{description? description.split(" ").slice(0,1).join("।"):"Null"}...</p>
-                    <a href={newsurl} target='_blank' className={'btn btn-sm btn-'+btntext} id='readmore'>Read More</a>
+                    <p className="card-text">{description? description.slice(0,40):"Null"}...</p>
+                    <a href={newsurl} target='_blank' className={'btn btn-sm btn-outline-'+btntext} id='readmore'>Read More</a>
                 </div>
             </div>
         </div>

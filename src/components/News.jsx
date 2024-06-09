@@ -4,30 +4,74 @@ import NewsItem from '../components/NewsItem';
 
 function News(props) {
     let headtext = props.mode === 'dark' ? 'light' : 'dark';
+    let btntext = props.mode === 'dark' ? 'light' : 'dark';
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [articles, setArticles] = useState([]);
+    const [page, setpage] = useState(null);
 
-    const url = "https://newsdata.io/api/1/latest?country=bd&apikey=pub_45944fb1a9de14510e09d7c3c52b9275745a4";
+    // Default fetch
+
+
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const result = await response.json();
-                setArticles(result.results); // Update state with the fetched data
-            } catch (error) {
-                setError(error);
-            } finally {
-                setLoading(false); // Set loading to false
-            }
-        };
+      const fetchData = async () => {
+        const url = "https://newsdata.io/api/1/latest?country=bd&apikey=pub_45944fb1a9de14510e09d7c3c52b9275745a4";
 
-        fetchData();
-    }, []);
+
+          try {
+              const response = await fetch(url);
+              if (!response.ok) {
+                  throw new Error('Network response was not ok');
+              }
+              const result = await response.json();
+              setArticles(result.results); // Update state with the fetched data
+              setpage(result.nextPage); //set nextpage
+          } catch (error) {
+              setError(error);
+          } finally {
+              setLoading(false); // Set loading to false
+          }
+      };
+
+      fetchData();
+  }, []);
+
+  // nextpage
+
+const handlenextpage= async()=>
+{
+  console.log('nextpage');
+    const url = 'https://newsdata.io/api/1/latest?country=bd&apikey=pub_45944fb1a9de14510e09d7c3c52b9275745a4&page='+page;
+console.log('url '+url);
+console.log(page);
+
+      try {
+          const response = await fetch(url);
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
+          }
+          const result = await response.json();
+          setArticles(result.results); // Update state with the fetched data
+          setpage(result.nextPage); //set nextpage
+      } catch (error) {
+          setError(error);
+      } finally {
+          setLoading(false); // Set loading to false
+      }
+  };
+
+
+
+
+const handlepreviouspage=()=>
+{
+  console.log('previous');
+}
+
+
+
+
 
     if (loading) {
         return (
@@ -55,6 +99,11 @@ function News(props) {
                             />
                         </div>
                     ))}
+                </div>
+                <div className="container d-flex justify-content-around my-3">
+                  <button className={'btn btn-sm btn-'+btntext}disabled onClick={handlepreviouspage}>	&larr; Previous</button>
+                  <button className={'btn btn-sm btn-'+btntext} onClick={handlenextpage}>	Next &rarr;</button>
+
                 </div>
             </div>
         </div>
