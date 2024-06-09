@@ -1,20 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function NewsItem({ mode, title, description ,imgurl}) {
+function NewsItem({ mode, title, description ,imgurl,newsurl}) {
   
-     if (description.length>100) {
-       var desc=description.substring(0,100)+'...';
-     }
-     else desc=description+"..."
+    let btntext = mode === 'dark' ? 'light' : 'dark';
     return (
         <div>
             <div className="card" style={{ width: "18rem" }} data-bs-theme={mode}>
-                <img src={imgurl} className="card-img-top" alt="..." />
+                <img src={imgurl?imgurl:'./NoImageFound.png'} className="card-img-top" alt="..." />
                 <div className="card-body" >
-                    <h5 className="card-title">{title}</h5>
-                    <p className="card-text">{desc}</p>
-                    <a href="/" className="btn btn-primary">Read More</a>
+                    <h5 className="card-title">{'"'+title?title.split("।").slice(0,1)+'।"':"Null"}</h5>
+                    <p className="card-text">{description? description.split(" ").slice(0,1).join("।"):"Null"}...</p>
+                    <a href={newsurl} target='_blank' className={'btn btn-sm btn-'+btntext} id='readmore'>Read More</a>
                 </div>
             </div>
         </div>
@@ -25,6 +22,7 @@ NewsItem.propTypes = {
     mode: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.string,
+    newsurl: PropTypes.string,
 }
 
 export default NewsItem
