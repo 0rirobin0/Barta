@@ -4,11 +4,12 @@ export default function Navbar(props) {
     let darkbtntext= props.mode=='dark'? 'light':'dark';
    
     return (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top " data-bs-theme={props.mode} >
+        <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top " data-bs-theme={props.mode}
+         >
             <div className="container-fluid">
            
                 <a className="navbar-brand" href="#">
-                <img src="/icon.png" alt="logo" width="40px" className='mx-2'  />
+                <img src="/icon.png" alt="logo" width="40px" className='mx-2 '  />
                  BARTA 24</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
